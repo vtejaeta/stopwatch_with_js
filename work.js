@@ -8,26 +8,27 @@ start.addEventListener('click', start_timer);
 stop.addEventListener('click', stop_timer);
 reset.addEventListener('click', reset_timer);
 
-window.valuetemp = 1;
+var temp = 1;
+var key;
 
 //  RESPECTIVE FUNCTIONS
 function start_timer() {
     start.style.outline = 'none';
     start.disabled = true;
     console.log('clicked-start');
-    window.value = setInterval(function start1() {
-        let min = parseInt(window.valuetemp / 60);
-        let sec = window.valuetemp % 60;
-        if (min < 10) {
-            min = '0' + min;
-        }
+    key = setInterval(function start1() {
+        let sec = parseInt(temp / 100);
+        let millisec = temp % 100;
         if (sec < 10) {
             sec = '0' + sec;
         }
-        document.getElementById('time').innerText = min + ':' + sec;
-        window.valuetemp++;
-        console.log(window.valuetemp);
-    }, 1000);
+        if (millisec < 10) {
+            millisec = '0' + millisec;
+        }
+        document.getElementById('time').innerText = sec + ':' + millisec;
+        temp++;
+        console.log(temp);
+    }, 10);
 }
 
 
@@ -35,13 +36,13 @@ function stop_timer() {
     stop.style.outline = 'none';
     start.disabled = false;
     console.log('clicked-stop');
-    clearInterval(window.value);
+    clearInterval(key);
 }
 
 function reset_timer() {
     reset.style.outline = 'none';
     start.disabled = false;
-    clearInterval(window.value);
-    window.valuetemp = 1;
+    clearInterval(key);
+    temp = 1;
     document.getElementById('time').innerText = '00:00';
 }
